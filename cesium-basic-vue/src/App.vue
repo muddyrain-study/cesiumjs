@@ -50,8 +50,49 @@ onMounted(() => {
         positiveZ: './texture/sky/pz.jpg',
         negativeZ: './texture/sky/nz.jpg'
       }
-    })
+    }),
+    // 天地图矢量路径图
+    // imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+    //   url: "http://t0.tianditu.com/vec_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=vec&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=11cf2ab5e7f08024032b86b7a93356ee",
+    //   layer: "tdtBasicLayer",
+    //   style: "default",
+    //   format: "image/jpeg",
+    //   tileMatrixSetID: "GoogleMapsCompatible",
+    // }),
+    //   天地图影像服务
+    imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+      url: "http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles&tk=11cf2ab5e7f08024032b86b7a93356ee",
+      layer: "tdtBasicLayer",
+      style: "default",
+      format: "image/jpeg",
+      tileMatrixSetID: "GoogleMapsCompatible",
+    }),
+    // OSM地图,
+    // imageryProvider: new Cesium.OpenStreetMapImageryProvider({
+    //   url: "https://a.tile.openstreetmap.org/",
+    // }),
+    // 高德矢量地图,
+    // imageryProvider: new Cesium.UrlTemplateImageryProvider({
+    //   url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+    //   layer: "tdtVecBasicLayer",
+    //   style: "default",
+    //   format: "image/png",
+    //   tileMatrixSetID: "GoogleMapsCompatible",
+    // }),
   })
+
+  // 地图叠加
+  var imageryLayers = viewer.imageryLayers;
+  var layer = imageryLayers.addImageryProvider(
+    new Cesium.UrlTemplateImageryProvider({
+      url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+      layer: "tdtVecBasicLayer",
+      style: "default",
+      format: "image/png",
+      tileMatrixSetID: "GoogleMapsCompatible",
+    })
+  )
+  layer.alpha = 0.5
   // 隐藏 logo
   viewer.cesiumWidget.creditContainer.style.display = "none"
 })
