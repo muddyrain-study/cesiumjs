@@ -3,12 +3,29 @@ import * as Cesium from "cesium"
 import "cesium/Build/Cesium/Widgets/widgets.css";
 import { onMounted } from "vue";
 
+// 设置 cesium token
+Cesium.Ion.defaultAccessToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJjMjg5NDc4MS02MDEzLTRhNzctYWZmZS0wODBiOTY5N2Q5NWQiLCJpZCI6MTMyOTM0LCJpYXQiOjE2ODExMTM3NjV9.6gsxUzk-N7d5j4aczy86pueVrnFZGV2jtgwiYa96c9A`
+
 // 设置静态资源路径
 window.CESIUM_BASE_URL = '/'
+// 设置默认视角
+Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(
+  // 西边经度  
+  89.5,
+  // 南边经度  
+  20.4,
+  // 东边经度  
+  110.4,
+  // 北边经度  
+  61.2,
+)
 
 onMounted(() => {
   const viewer = new Cesium.Viewer("cesiumContainer", {
+    infoBox: false
   })
+  // 隐藏 logo
+  viewer.cesiumWidget.creditContainer.style.display = "none"
 })
 </script>
 
