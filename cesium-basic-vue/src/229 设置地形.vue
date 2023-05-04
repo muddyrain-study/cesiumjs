@@ -24,22 +24,13 @@ onMounted(() => {
   const viewer = new Cesium.Viewer("cesiumContainer", {
     // 是否显示信息
     infoBox: false,
+    // 设置地形
+    terrainProvider: new Cesium.CesiumTerrainProvider({
+      url: "./terrains/gz"
+    })
   })
   // 隐藏 logo
   viewer.cesiumWidget.creditContainer.style.display = "none"
-
-  // 瞬间到达指定位置和视角
-  // 生成 position 是天安们的位置
-  const position = Cesium.Cartesian3.fromDegrees(
-    116.397428,
-    39.90923,
-    100
-  )
-  viewer.camera.setView(
-    {
-      destination: position
-    }
-  )
 })
 </script>
 

@@ -28,18 +28,29 @@ onMounted(() => {
   // 隐藏 logo
   viewer.cesiumWidget.creditContainer.style.display = "none"
 
-  // 瞬间到达指定位置和视角
-  // 生成 position 是天安们的位置
-  const position = Cesium.Cartesian3.fromDegrees(
-    116.397428,
-    39.90923,
+  // 1 屏幕坐标系统 二维的笛卡尔坐标系 Cartesian2 类型
+  // 2 地理坐标系统 WGS-84坐标系 Cartographic 类型 精度 维度 高度
+  // 3 笛卡尔空间直角坐标系 Cartesian3 类型
+
+  // 角度与弧度的转换
+  var radian = Cesium.Math.toRadians(90)
+  console.log(radian);
+  // 弧度转角度
+  var degrees = Cesium.Math.toDegrees(2 * Math.PI)
+  console.log(degrees);
+  // 将经纬度转为笛卡尔坐标
+  var cartesian3 = Cesium.Cartesian3.fromDegrees(
+    // 经度
+    89.5,
+    // 纬度
+    20.4,
+    // 高度
     100
   )
-  viewer.camera.setView(
-    {
-      destination: position
-    }
-  )
+  console.log(cartesian3);
+  // 将笛卡尔坐标转为经纬度
+  var cartographic = Cesium.Cartographic.fromCartesian(cartesian3)
+  console.log(cartographic);
 })
 </script>
 
