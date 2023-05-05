@@ -16,6 +16,7 @@ Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(
   20.4,
   // 东边经度  
   110.4,
+
   // 北边经度  
   61.2,
 )

@@ -77,8 +77,6 @@ onMounted(() => {
       )
     }
   })
-  // viewer.zoomTo(viewer.entities)
-  viewer.flyTo(viewer.entities)
 })
 </script>
 
