@@ -71,41 +71,6 @@ onMounted(() => {
       outlineWidth: 4,
     }
   })
-  // 添加文字标签和广告牌 
-  viewer.entities.add({
-    position: Cesium.Cartesian3.fromDegrees(
-      113.3191,
-      23.109,
-      650
-    ),
-    label: {
-      text: '广州塔',
-      font: '24px monospace',
-      fillColor: Cesium.Color.WHITE,
-      outlineColor: Cesium.Color.BLACK,
-      // FILL 填充文字 OUTLINE 轮廓文字  FILL_AND_OUTLINE 填充+轮廓
-      style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-      outlineWidth: 4,
-      verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-      pixelOffset: new Cesium.Cartesian2(0, -24),
-    },
-
-  })
-  viewer.entities.add({
-    position: Cesium.Cartesian3.fromDegrees(
-      113.3191,
-      23.109,
-      750
-    ),
-    billboard: {
-      image: "./texture/gzt.png",
-      width: 50,
-      height: 50,
-      verticalOrigin: Cesium.VerticalOrigin.TOP,
-      horizontalOrigin: Cesium.HorizontalOrigin.CENTER,
-      // pixelOffset: new Cesium.Cartesian2(0, -24),
-    }
-  })
 })
 </script>
 
