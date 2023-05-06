@@ -47,7 +47,6 @@ onMounted(() => {
 
   // 使用entity创建矩形
   var rectangle = viewer.entities.add({
-    id: "entityRect",
     rectangle: {
       coordinates: Cesium.Rectangle.fromDegrees(
         // 西边的经度
@@ -81,34 +80,9 @@ onMounted(() => {
     vertexFormat: Cesium.PerInstanceColorAppearance.VERTEX_FORMAT,
   });
 
-  let rectGeometry2 = new Cesium.RectangleGeometry({
-    rectangle: Cesium.Rectangle.fromDegrees(
-      // 西边的经度
-      140,
-      // 南边维度
-      20,
-      // 东边经度
-      160,
-      // 北边维度
-      30
-    ),
-    // 距离表面高度
-    height: 0,
-    vertexFormat: Cesium.PerInstanceColorAppearance.VERTEX_FORMAT,
-  });
   // 02-创建几何体实例
   let instance = new Cesium.GeometryInstance({
-    id: "yellowRect",
     geometry: rectGeometry,
-    attributes: {
-      color: Cesium.ColorGeometryInstanceAttribute.fromColor(
-        Cesium.Color.YELLOW.withAlpha(0.5)
-      ),
-    },
-  });
-  let instance2 = new Cesium.GeometryInstance({
-    id: "blueRect",
-    geometry: rectGeometry2,
     attributes: {
       color: Cesium.ColorGeometryInstanceAttribute.fromColor(
         Cesium.Color.BLUE.withAlpha(0.5)
@@ -121,40 +95,11 @@ onMounted(() => {
   });
   // 04-图元
   let primitive = new Cesium.Primitive({
-    geometryInstances: [instance, instance2],
+    geometryInstances: instance,
     appearance: appearance,
   });
   // 05-添加到viewer
   viewer.scene.primitives.add(primitive);
-
-  // 动态修改图元颜色
-  setTimeout(() => {
-    const attribute = primitive.getGeometryInstanceAttributes("blueRect")
-    attribute.color = Cesium.ColorGeometryInstanceAttribute.toValue(
-      // Cesium.Color.ORANGE.withAlpha(0.5)
-      Cesium.Color.fromRandom({
-        alpha: 0.5
-      })
-    )
-  }, 2000);
-
-  // 拾取
-  const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas
-  )
-  handler.setInputAction(function (movement) {
-    var pickedObject = viewer.scene.pick(movement.position)
-    if (Cesium.defined(pickedObject)) {
-      if (typeof pickedObject.id === 'string') {
-        const attribute = primitive.getGeometryInstanceAttributes(pickedObject.id)
-        attribute.color = Cesium.ColorGeometryInstanceAttribute.toValue(
-          // Cesium.Color.ORANGE.withAlpha(0.5)
-          Cesium.Color.fromRandom({
-            alpha: 0.5
-          })
-        )
-      }
-    }
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
 
   viewer.camera.setView(viewer.entities);
 })

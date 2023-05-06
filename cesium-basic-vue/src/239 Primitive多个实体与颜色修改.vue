@@ -47,7 +47,6 @@ onMounted(() => {
 
   // 使用entity创建矩形
   var rectangle = viewer.entities.add({
-    id: "entityRect",
     rectangle: {
       coordinates: Cesium.Rectangle.fromDegrees(
         // 西边的经度
@@ -128,7 +127,7 @@ onMounted(() => {
   viewer.scene.primitives.add(primitive);
 
   // 动态修改图元颜色
-  setTimeout(() => {
+  setInterval(() => {
     const attribute = primitive.getGeometryInstanceAttributes("blueRect")
     attribute.color = Cesium.ColorGeometryInstanceAttribute.toValue(
       // Cesium.Color.ORANGE.withAlpha(0.5)
@@ -136,25 +135,7 @@ onMounted(() => {
         alpha: 0.5
       })
     )
-  }, 2000);
-
-  // 拾取
-  const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas
-  )
-  handler.setInputAction(function (movement) {
-    var pickedObject = viewer.scene.pick(movement.position)
-    if (Cesium.defined(pickedObject)) {
-      if (typeof pickedObject.id === 'string') {
-        const attribute = primitive.getGeometryInstanceAttributes(pickedObject.id)
-        attribute.color = Cesium.ColorGeometryInstanceAttribute.toValue(
-          // Cesium.Color.ORANGE.withAlpha(0.5)
-          Cesium.Color.fromRandom({
-            alpha: 0.5
-          })
-        )
-      }
-    }
-  }, Cesium.ScreenSpaceEventType.LEFT_CLICK)
+  }, 1000);
 
   viewer.camera.setView(viewer.entities);
 })
